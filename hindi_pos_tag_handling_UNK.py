@@ -36,7 +36,7 @@ def tag_words(text):
     return tagged
 
 
-def handle_UNK(tagged_words, model_path):
+def handle_UNK(tagged, model_path):
     with open(model_path, "r+") as f1:
         result_list = []
         for nep_word, tag in tagged:
@@ -65,8 +65,6 @@ def handle_UNK(tagged_words, model_path):
         for line in f1.readlines():
             f1.write(line.replace("</Corpora>", ""))
         f1.write(output)
-
-
 
 sentence_id = (get_sentId(model_path))
 #print (sentence_id)
