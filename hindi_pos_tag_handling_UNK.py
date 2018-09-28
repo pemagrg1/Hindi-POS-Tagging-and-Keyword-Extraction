@@ -84,7 +84,7 @@ new_tagged_words =  tag_words(text)
 print ("=================================New Tagged words=================================\n",new_tagged_words,"\n")
 
 with open("result/handling_UNK_output.txt","a") as output_file:
-    output_file.write("[INPUT]\n")
+    output_file.write("\n[INPUT]\n")
     output_file.write(text)
     output_file.write("\n[BEFORE RE TRAIN]\n")
     output_file.write(str(tagged_words))
