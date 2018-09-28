@@ -10,7 +10,6 @@ sentence_id = 0
 text = "बाबा रामदेव के गुरुकुल का आज अमित शाह करेंगे उद्घाटन, योगगुरु बोले- बच्‍चों को वेद भी पढ़ाते हैं और योग भी कराते हैं"
 model_path = "data/hindi.pos" #Copy hindi.pos from NLTK corpus
 
-
 def train_hindi_model(model_path):
     train_data = indian.tagged_sents(model_path)
     tnt_pos_tagger = tnt.TnT()
@@ -31,15 +30,15 @@ def get_sentId(model_path):
     return id
 
 
-def tag_words(text):
+def tag_words(model,text):
     tagged = (model.tag(nltk.word_tokenize(text)))
     return tagged
 
 
-def handle_UNK(tagged, model_path):
+def handle_UNK(tagged_words, model_path, sentence_id):
     with open(model_path, "r+") as f1:
         result_list = []
-        for nep_word, tag in tagged:
+        for nep_word, tag in tagged_words:
             if tag == "Unk":
                 x = translator.translate(nep_word)
                 if x is not None:
@@ -60,29 +59,30 @@ def handle_UNK(tagged, model_path):
                 result = nep_word + "_" + (tag) + " "
                 result_list.append(result)
 
-        writing_word = str("\n<Sentence id=") + str(id) + ">\n"
+        writing_word = str("\n<Sentence id=") + str(sentence_id) + ">\n"
         output = writing_word + "".join(result_list) + "\n</Sentence>\n</Corpora>"
         for line in f1.readlines():
             f1.write(line.replace("</Corpora>", ""))
         f1.write(output)
 
+
 sentence_id = (get_sentId(model_path))
-#print (sentence_id)
+print (sentence_id)
 
 model = train_hindi_model(model_path)
-tagged_words = tag_words(text)
+tagged_words = tag_words(model,text)
 
 print ("=================================Tagged words=================================\n",tagged_words,"\n")
 
-handle_UNK(tagged_words,model_path)
+handle_UNK(tagged_words,model_path,sentence_id)
 
 #retrain the model
 model = train_hindi_model(model_path)
-new_tagged_words =  tag_words(text)
+new_tagged_words =  tag_words(model,text)
 print ("=================================New Tagged words=================================\n",new_tagged_words,"\n")
 
 with open("result/handling_UNK_output.txt","a") as output_file:
-    output_file.write("\n[INPUT]\n")
+    output_file.write("[INPUT]\n")
     output_file.write(text)
     output_file.write("\n[BEFORE RE TRAIN]\n")
     output_file.write(str(tagged_words))
