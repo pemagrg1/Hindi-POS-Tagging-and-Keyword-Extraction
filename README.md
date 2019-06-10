@@ -57,6 +57,12 @@ The main issue here is that the nltk data is not complete. So we tend to get the
 
 I have tried using Google Translator API to handle the "Unk" tags by translating and getting the tags and then appending it to the NLTK Indian Corpus which gave a pretty good result.
 
+### Keyword Extraction
+run hindi_keyword_extraction.py file
+
+`input_text = "इराक के विदेश मंत्री ने अमरीका के उस प्रस्ताव का मजाक उड़ाया है , जिसमें अमरीका ने संयुक्त राष्ट्र के प्रतिबंधों को इराकी नागरिकों के लिए कम हानिकारक बनाने के लिए कहा है ।"`
+
+`#OUTPUT {'अमरीका', 'इराक', 'विदेश मंत्री', 'प्रस्ताव', 'नागरिकों', 'प्रतिबंधों', 'अमरीका संयुक्त राष्ट्र'}` 
 
 **REF:**
 
