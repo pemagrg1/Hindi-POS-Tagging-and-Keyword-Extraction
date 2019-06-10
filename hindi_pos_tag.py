@@ -14,8 +14,8 @@ model = hindi_model()
 new_tagged = (model.tag(nltk.word_tokenize(text)))
 print(new_tagged)
 
-with open("result/output.txt","a") as output_file:
-    output_file.write("\n[INPUT]\n")
-    output_file.write(text)
-    output_file.write("\n[OUTPUT]\n")
-    output_file.write(str(new_tagged))
+# with open("result/output.txt","a") as output_file:
+#     output_file.write("\n[INPUT]\n")
+#     output_file.write(text)
+#     output_file.write("\n[OUTPUT]\n")
+#     output_file.write(str(new_tagged))
